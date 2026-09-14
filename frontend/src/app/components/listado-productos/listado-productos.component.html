@@ -1,0 +1,24 @@
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Stock</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let producto of productos()">
+      <td>{{ producto.nombre }}</td>
+      <td>{{ producto.precio | currency:'Q' }}</td>
+      <td>{{ producto.stock }}</td>
+      <td>
+        <button (click)="agregarAlCarrito(producto)">Agregar al carrito</button>
+        <button (click)="editarProducto(producto.id)">Editar</button>
+        <button (click)="eliminarProducto(producto)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<app-resumen-carrito></app-resumen-carrito>

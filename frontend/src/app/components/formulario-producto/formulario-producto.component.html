@@ -1,0 +1,37 @@
+<h2>{{ editingProductId ? 'Editar producto' : 'Agregar nuevo producto' }}</h2>
+
+<p *ngIf="isLoading">Cargando producto...</p>
+<p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+<p *ngIf="formMessage">{{ formMessage }}</p>
+
+<form [formGroup]="productoForm" (ngSubmit)="submit()">
+    
+    <div class="campo">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" formControlName="nombre" />
+        <small *ngIf="productoForm.get('nombre')?.invalid && productoForm.get('nombre')?.touched" class="error">
+            El nombre es obligatorio.
+        </small>
+    </div>
+
+    <div class="campo">
+        <label for="precio">Precio</label>
+        <input id="precio" type="number" step="0.01" min="0" formControlName="precio" />
+        <small *ngIf="productoForm.get('precio')?.invalid && productoForm.get('precio')?.touched" class="error">
+            Ingrese un precio válido (mayor o igual a 0).
+        </small>
+    </div>
+
+    <div class="campo">
+        <label for="stock">Stock</label>
+        <input id="stock" type="number" step="1" min="0" formControlName="stock" />
+        <small *ngIf="productoForm.get('stock')?.invalid && productoForm.get('stock')?.touched" class="error">
+            El stock debe ser un número entero mayor o igual a 0.
+        </small>
+    </div>
+
+    <button type="submit" [disabled]="isSubmiting || productoForm.invalid">
+        {{ editingProductId ? 'Actualizar' : 'Guardar' }}
+    </button>
+    <button type="button" (click)="cancelar()">Cancelar</button>
+</form>
